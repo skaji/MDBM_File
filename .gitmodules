@@ -1,0 +1,3 @@
+[submodule "mdbm"]
+	path = mdbm
+	url = https://github.com/yahoo/mdbm
