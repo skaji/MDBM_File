@@ -51,6 +51,12 @@
          }
       }
    },
+   "provides" : {
+      "MDBM_File" : {
+         "file" : "lib/MDBM_File.pm",
+         "version" : "2"
+      }
+   },
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
