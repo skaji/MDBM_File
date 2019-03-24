@@ -25,8 +25,20 @@ sub new {
 sub ACTION_code {
     my ($self, @argv) = @_;
 
-    !system $Config{make}, "-C", "mdbm/src/lib" or die;
-    push @{$self->{properties}{objects} ||= []}, glob "mdbm/src/lib/object/*.o";
+    my @object = qw(
+        object/hash.o
+        object/log.o
+        object/mdbm.o
+        object/mdbm_handle_pool.o
+        object/mdbm_lock.o
+        object/mdbm_util.o
+        object/multi_lock.o
+        object/shmem.o
+        object/stall_signals.o
+    );
+
+    !system $Config{make}, "-C", "mdbm/src/lib", @object or die;
+    push @{$self->{properties}{objects} ||= []}, map { "mdbm/src/lib/$_" } @object;
     {
         local $self->{properties}{extra_compiler_flags} = ["-xc++"];
         push @{$self->{properties}{objects}}, $self->compile_c("lib/shakedata.cc");
